@@ -1,0 +1,56 @@
+case_name: "hybrid_fusion_main"
+alignment_version: "study_level_cache_v1"
+seeds: [42, 43, 44, 45, 46]
+device: "auto"
+
+paths:
+  raddino_dir: "./data/raddino_cache"
+  cohort_path: "./data/raddino_cache/cohort_study_level.parquet"
+  index_path: "./data/raddino_cache/index.parquet"
+  columns_json: "./data/raddino_cache/columns.json"
+  support_audit_path: "./data/raddino_cache/support_devices_update_audit.json"
+
+  bio_cache_dir: "./data/biovilt_cache"
+  bio_emb_path: "./data/biovilt_cache/biovilt_study_embeddings.npy"
+  bio_manifest_path: "./data/biovilt_cache/biovilt_study_manifest.parquet"
+  bio_cache_spec: "./data/biovilt_cache/cache_spec.json"
+
+  out_root: "./outputs"
+
+split:
+  test_size: 0.20
+  val_size_from_temp: 0.125
+
+data_loader:
+  batch_size: 1024
+  num_workers: 0
+
+model:
+  latent_dim: 256
+  hidden_dim: 512
+
+train:
+  ae_epochs: 12
+  gen_epochs: 10
+  pred_epochs: 60
+  patience: 8
+  topk: 3
+  lr: 2.0e-4
+  pred_lr: 1.5e-4
+  weight_decay: 3.0e-4
+
+regularization:
+  feature_noise_std: 0.025
+  mixup_alpha: 0.20
+  label_smooth: 0.02
+
+fusion:
+  grid_step: 0.10
+  min_fusion_weight: 0.30
+  shrinkage: 0.70
+  min_val_ap_gain: 0.002
+  min_recall: 0.30
+
+report:
+  ci_level: 0.95
+  sample_level: "study"

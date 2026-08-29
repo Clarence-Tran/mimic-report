@@ -1,0 +1,18 @@
+# Minimum-version constraints. Before freezing the camera-ready artifact,
+# run a full pipeline pass in your training environment (e.g. the Colab GPU
+# runtime used to produce the paper's numbers) and capture exact versions:
+#
+#   pip freeze > requirements-lock.txt
+#
+# scipy.stats.ttest_rel and the CKA/permutation utilities are sensitive to
+# scipy/sklearn minor-version changes, so ship requirements-lock.txt alongside
+# this file for anyone trying to reproduce the reported statistics exactly.
+numpy>=1.26
+pandas>=2.0
+pyarrow>=14.0
+scikit-learn>=1.3
+scipy>=1.11
+torch>=2.1
+matplotlib>=3.8
+seaborn>=0.13
+pyyaml>=6.0
